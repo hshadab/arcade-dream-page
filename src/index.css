@@ -1,42 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Neon Arcade Design System - All colors MUST be HSL */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Neon Arcade Color Palette */
+    --background: 240 15% 8%;
+    --foreground: 180 100% 95%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 240 15% 12%;
+    --card-foreground: 180 100% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 240 15% 10%;
+    --popover-foreground: 180 100% 95%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Neon Primary Colors */
+    --primary: 195 100% 50%;
+    --primary-foreground: 240 15% 8%;
+    
+    --secondary: 310 100% 50%;
+    --secondary-foreground: 240 15% 8%;
+    
+    --accent: 150 100% 50%;
+    --accent-foreground: 240 15% 8%;
+    
+    --neon-pink: 320 100% 50%;
+    --neon-blue: 195 100% 50%;
+    --neon-cyan: 180 100% 50%;
+    --neon-purple: 280 100% 50%;
+    --neon-green: 150 100% 50%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --muted: 240 15% 15%;
+    --muted-foreground: 180 50% 70%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 240 15% 20%;
+    --input: 240 15% 15%;
+    --ring: 195 100% 50%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Neon Gradients */
+    --gradient-neon: linear-gradient(135deg, hsl(var(--neon-pink)) 0%, hsl(var(--neon-blue)) 50%, hsl(var(--neon-cyan)) 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    --gradient-border: linear-gradient(135deg, hsl(var(--neon-pink) / 0.5) 0%, hsl(var(--neon-cyan) / 0.5) 100%);
+    
+    /* Glass Effects */
+    --glass-bg: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    
+    /* Shadows */
+    --shadow-neon: 0 0 20px hsl(var(--primary) / 0.3), 0 0 40px hsl(var(--primary) / 0.2);
+    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --shadow-magnetic: 0 10px 40px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--secondary) / 0.3);
+
+    /* Animation Durations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-magnetic: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +126,102 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-exo;
+    background: var(--gradient-neon);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  /* Glass Card Effects */
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-xl border border-white/10 rounded-xl;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-glass);
+    transition: var(--transition-smooth);
+  }
+  
+  .glass-card:hover {
+    @apply scale-105 rotate-1;
+    box-shadow: var(--shadow-glass), var(--shadow-neon);
+  }
+
+  /* Magnetic Button Effect */
+  .btn-magnetic {
+    @apply relative overflow-hidden bg-gradient-to-r from-primary via-secondary to-accent text-primary-foreground font-bold py-4 px-8 rounded-xl border-0;
+    background: var(--gradient-neon);
+    box-shadow: var(--shadow-neon);
+    transition: var(--transition-magnetic);
+    transform-style: preserve-3d;
+  }
+  
+  .btn-magnetic::before {
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    content: '';
+    background: linear-gradient(135deg, hsl(var(--neon-cyan) / 0.3) 0%, hsl(var(--neon-pink) / 0.3) 100%);
+  }
+  
+  .btn-magnetic:hover {
+    @apply scale-110;
+    box-shadow: var(--shadow-magnetic);
+    transform: translateY(-5px) scale(1.1);
+  }
+  
+  .btn-magnetic:hover::before {
+    @apply opacity-100;
+  }
+  
+  .btn-magnetic:active {
+    @apply scale-105;
+    transform: translateY(-2px) scale(1.05);
+  }
+
+  /* Neon Text Effect */
+  .text-neon {
+    @apply text-transparent bg-clip-text;
+    background: var(--gradient-neon);
+    text-shadow: 0 0 30px hsl(var(--primary) / 0.5);
+  }
+  
+  .text-neon-glow {
+    @apply text-primary;
+    text-shadow: 
+      0 0 5px hsl(var(--primary) / 1),
+      0 0 10px hsl(var(--primary) / 0.8),
+      0 0 20px hsl(var(--primary) / 0.6),
+      0 0 40px hsl(var(--primary) / 0.4);
+  }
+
+  /* Form Styles */
+  .form-input {
+    @apply bg-card/50 backdrop-blur-md border border-white/20 rounded-lg px-4 py-3 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300;
+    background: var(--glass-bg);
+  }
+  
+  .form-input:focus {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+  }
+
+  /* Success Animation */
+  .success-pulse {
+    animation: success-pulse 0.6s ease-out;
+  }
+  
+  @keyframes success-pulse {
+    0% { transform: scale(0.8); opacity: 0; }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  /* 3D Tilt Effect */
+  .tilt-3d {
+    transform-style: preserve-3d;
+    transition: var(--transition-smooth);
+  }
+  
+  .tilt-3d:hover {
+    transform: perspective(1000px) rotateX(5deg) rotateY(5deg) translateZ(10px);
   }
 }
