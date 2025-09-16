@@ -1,7 +1,7 @@
 # Arcade Dream - Design Documentation
 
 ## Overview
-Neon Arcade is a futuristic gaming launch page that combines retro arcade aesthetics with modern cyberpunk design elements. The page embodies energy, playfulness, and cutting-edge technology through bold neon colors, glass morphism effects, and magnetic interactions.
+Arcade Dream is a futuristic gaming launch page that combines retro arcade aesthetics with modern cyberpunk design elements. The page embodies energy, playfulness, and cutting-edge technology through bold neon colors, glass morphism effects, and magnetic interactions.
 
 ## Design Philosophy
 
